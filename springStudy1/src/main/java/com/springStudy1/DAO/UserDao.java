@@ -28,7 +28,9 @@ public class UserDao {  // JDBC를 이용한 DAO 클래스로 user 테이블을 
 		String sql="select user_id from user where user_id=?";  
 		
 		try {
-			String id = jdbc.queryForObject(sql, String.class, userId);  // queryForject()
+			String id = jdbc.queryForObject(sql, String.class, userId);  
+			// queryForject() JabcTemplate가 제공하는 메서드. 단일 행(single row)의 결과로 조회할 때 사용됨
+			// 여러 행을 조회할때는 query() 사용.
 		}catch(EmptyResultDataAccessException e) { // catch 부분이 실행 된다는것은  조회 결과가 없다는 뜻
 			return false; // 아이디가 중복이 아니다.
 		}
@@ -40,6 +42,7 @@ public class UserDao {  // JDBC를 이용한 DAO 클래스로 user 테이블을 
 		String sql="insert into user(user_id, user_pw, user_email, user_job,"+
 	              "user_addr, user_like) values(?,?,?,?,?,?)";
 		
+		// update 저장할때
 		jdbc.update(sql, user.getUserId(), user.getUserPw(), user.getUserEmail(),
 				user.getUserJob(), user.getUserAddr(), user.getUserLike());
 		
@@ -51,6 +54,10 @@ public class UserDao {  // JDBC를 이용한 DAO 클래스로 user 테이블을 
 		
 		try {
 			String userId = jdbc.queryForObject(sql, String.class, id, pw);
+			// queryForObject() 는 SQL 실행 결과를 특정 타입으로 변환해서 반환하는데, 두번째 매개변수에서 그 반환할 타입을 지정.
+			// int로 변환시 Integer.class를 사용.
+			
+			
 		}catch(EmptyResultDataAccessException e) {
 			return false; // 아이디 또는 비밀번호가 틀려서 결과가 없다.
 		}
