@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+
+#loginWrap{
+	margin:15px 0;
+	width:100%;
+}
+#loginWrap .login-box{
+	display:flex;
+}
+.login-area{
+	border:2px solid #6495ed70;
+	border-radius:7px;
+}
+
+.input-field {
+	display:flex;
+	align-items:center;
+}
+
+.input-field label {width:85px; text-align:right; padding-right:5px;}
+.input-field input {width:200px; font-size:17px;}
+
+#loginBtBox{
+	width: 100%;
+}
+
+#loginBtBox .login-bt {
+	display : block;
+	width: 100%;
+	text-align: center;
+	padding: 15px 0;
+	background: #3cb371;
+	color: #fff;
+	font-weight:600;
+	font-family: "Noto Sans", sans-serif;
+	font-size:25px;
+	letter-spacing:4px;
+	border-radius:7px;
+}
+
+#main {
+	height : 800px;
+}
