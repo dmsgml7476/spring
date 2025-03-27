@@ -58,3 +58,39 @@ input {
 	background:#3cb371;
 	color:#eee;
 }
+
+/* 로그인 성공시 보여지는 유저 메뉴 영역 */
+
+#userBox{
+	position : fixed;
+	bottom:0;
+	left:-125px;
+	display:flex;
+	transition:left 1s ease;  /* ease-in-out : 느렸다 빨라지는거 */
+}
+
+#userMenu {
+	display: flex;
+	flex-direction : column;
+	row-gap:5px;
+	text-align:center;
+	padding:10px;
+	position:relative;
+	background:powderblue;
+	width:125px;
+}
+
+#userMenu .user-email{word-break:break-all;}
+
+#menuToggle {
+	align-self:end;
+	color:navy;
+}
+
+#menuToggle .menuHide {
+	display:none;
+}
+
+
+
+

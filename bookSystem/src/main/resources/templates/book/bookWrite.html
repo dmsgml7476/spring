@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	  
+<head>
+	<th:block layout:fragment="css"></th:block>  
+	<th:block layout:fragmnet="script"></th:block>
+</head>
+
+		
+	<div layout:fragment="main" id="main">
+		<form th:object="${bookWriteDto}" method ="get" action="/admin/bookSave">
+			<div class="data-field">
+				<label th:for="bookTitle">제목</lebel>
+				<input type="text" th:field="*{bookTitle}">
+			</div>
+			<div class="data-field">
+				<label th:for="bookAuthor">저자</lebel>
+				<input type="text" th:field="*{bookAuthor}">
+			</div>
+			<div class="data-field">
+				<label th:for="bookPublishing">출판사</lebel>
+				<input type="text" th:field="*{bookPublishing}">
+			</div>
+			<div class="data-field">
+				<label th:for="bookYear">출판년도</lebel>
+				<input type="text" th:field="*{bookYear}">
+			</div>
+			
+			<button class="btn book-btn">등록</button>
+		</form>
+	</div>
+	
+	
+	
+</html>

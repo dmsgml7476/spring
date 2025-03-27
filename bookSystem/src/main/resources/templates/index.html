@@ -18,7 +18,7 @@
 
 		
 	<div layout:fragment="main" id="main">
-		<div id="loginWrap">
+		<div th:if = "${session.user==null}" id="loginWrap">
 			<div class="login-box">
 				<div class="login-area">
 					<form name="loginFm" id="loginFm" th:object="${memberDto}" method="post" action="/signIn">

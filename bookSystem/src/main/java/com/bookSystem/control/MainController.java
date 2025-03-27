@@ -9,9 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.bookSystem.DTO.BookLIstDto;
+import com.bookSystem.DTO.BookSearchDto;
 import com.bookSystem.DTO.MemberDto;
 import com.bookSystem.Service.BookService;
 import com.bookSystem.Service.MemberService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -33,7 +37,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/signIn")
-	public String login(MemberDto memberDto, Model model) { // 굳이 다른 방법을 쓸 필요 없이 받아올수 있다.
+	public String login(MemberDto memberDto, HttpSession session, Model model) { // 굳이 다른 방법을 쓸 필요 없이 받아올수 있다.
 		System.out.println(memberDto.getEmail());
 		
 			//로그인 처리를 진행하려면 service 의 메서드를 호출한다.
@@ -43,15 +47,40 @@ public class MainController {
 		boolean isSuccess = memberService.signIn(memberDto);
 		
 		if (isSuccess) {
+			session.setAttribute("user", memberDto.getEmail());
 			return "redirect:/";  // forword 말고 간단하게 하는 방식?
 		}
 		// 로그인 실패시 index.html 다시 돌아가기
 		model.addAttribute("fail", 1);
 		return "index";
-		
-		
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		return "redirect:/";
+	}
+	
+	// 도서 검색부분
+	
+	
+	@GetMapping("/bookSearch")
+	public String search(Model model) {  // 도서 검색 페이지 요청
+		
+		model.addAttribute("bookSearchDto", new BookSearchDto());
+		
+		return "book/search";
+	}
+	
+	@GetMapping("/bookSearch/result")
+	public String searchResult(BookSearchDto bookSearchDto, Model model) {
+		List<BookLIstDto> bookLIstDto = bookservice.bookSearch(bookSearchDto);
+		model.addAttribute("bookLIstDto", bookLIstDto);
+		return "book/search";
+	}
+	
+	
+	// 도서 검색부분 끝
 	
 	//변수 받아오는 세가지 방법
 	// 1. request param

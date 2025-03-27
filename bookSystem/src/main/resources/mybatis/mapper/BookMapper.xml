@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="com.bookSystem.Repository.BookRepository">
+	<insert id="save" parameterType="com.bookSystem.Entity.Book">
+		insert into book(book_title, book_author, book_publishing, book_year) 
+		values(#{bookTitle}, #{bookAuthor}, #{bookPublishing}, #{bookYear})
+	</insert>
+	<select id="findByAll" resultType ="com.bookSystem.Entity.Book" parameterType ="com.bookSystem.Entity.Book">
+	
+		select * from book 
+		where 
+		 <choose>
+		 	<when test="option== 'title'">
+		 		book_title like concat('%', #{keyword}, '%')
+		 	</when>
+		 	
+		 	<otherwise>
+		 		book_title like concat('%', #{keyword}, '%') 
+		 		or book_author like concat('%', #{keyword}, '%')
+		 	</otherwise>
+		 </choose>
+	
+	</select>
+
+</mapper>
+

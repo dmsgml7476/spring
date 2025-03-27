@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	  
+<head>
+	<th:block layout:fragment="css"></th:block>  
+	<th:block layout:fragmnet="script"></th:block>
+</head>
+
+		
+	<div layout:fragment="main" id="main">
+	
+		<h1> 도서 검색 </h1>
+		<div id="searchWrap">
+			<form th:object="${bookSearchDto}" method="get" action ="/bookSeach/result">
+				<div id="searchBox">
+					<label th:for="keyword">검색</label>
+					<input type="text" th:fiel="*{keyword}">
+					<i class="bi bi-search"></i>
+				</div>
+				제목만 검색 <input type="checkbox" id="option" value="title">
+				<input type = "hidden" th:field="*{option}">
+				<br>
+			</form>
+		</div>
+	
+	
+	</div>
+	
+	
+	
+</html>
