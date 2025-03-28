@@ -5,7 +5,18 @@
 	  
 <head>
 	<th:block layout:fragment="css"></th:block>  
-	<th:block layout:fragmnet="script"></th:block>
+	<th:block layout:fragmnet="script">
+	<script>
+		window.onload=function(){
+			const input = document.getElementById("keyword");
+			input.addEventListener('keydown', function(event){
+				if(event.key==='Enter') {
+					alert("엔터키");
+				}
+			});
+		}
+	</script>
+	</th:block>
 </head>
 
 		
@@ -13,16 +24,39 @@
 	
 		<h1> 도서 검색 </h1>
 		<div id="searchWrap">
-			<form th:object="${bookSearchDto}" method="get" action ="/bookSeach/result">
+			<form th:object="${bookSearchDto}" method="get" action ="/bookSearch/result">
 				<div id="searchBox">
 					<label th:for="keyword">검색</label>
-					<input type="text" th:fiel="*{keyword}">
+					<input type="text" th:field="*{keyword}">
 					<i class="bi bi-search"></i>
 				</div>
 				제목만 검색 <input type="checkbox" id="option" value="title">
 				<input type = "hidden" th:field="*{option}">
+				
 				<br>
 			</form>
+			<br> <br><hr><br><br>
+			<table>
+				<thead>
+					<tr>
+						<th>번호</th><th>제목</th><th>저자</th><th>출판사</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr th:each="row , stat: ${bookLIstDtos}">
+						<td th:text="${stat.count}"></td>
+						<td>
+							<a th:href="${ session.user==null ? '' : '/basket?bookId='+ row.bookId }" 
+							th:text="${row.bookTitle}"></a>
+						</td>
+						<td th:text="${row.bookAuthor}"></td>
+						<td th:text="${row.bookPublishing}"></td>
+					</tr>
+				
+				</tbody>
+			</table>
+			
 		</div>
 	
 	

@@ -10,22 +10,59 @@
 		insert into book(book_title, book_author, book_publishing, book_year) 
 		values(#{bookTitle}, #{bookAuthor}, #{bookPublishing}, #{bookYear})
 	</insert>
-	<select id="findByAll" resultType ="com.bookSystem.Entity.Book" parameterType ="com.bookSystem.Entity.Book">
-	
-		select * from book 
-		where 
+<select id="findByAll" parameterType="com.bookSystem.DTO.BookSearchDto"
+	resultType="com.bookSystem.Entity.Book">
+		
+		select * from book
+		where
 		 <choose>
-		 	<when test="option== 'title'">
+		 	<when test="option == 'title'">
 		 		book_title like concat('%', #{keyword}, '%')
 		 	</when>
-		 	
+		 
 		 	<otherwise>
-		 		book_title like concat('%', #{keyword}, '%') 
+		 		book_title like concat('%', #{keyword}, '%')
 		 		or book_author like concat('%', #{keyword}, '%')
 		 	</otherwise>
 		 </choose>
-	
+		
 	</select>
+	
+	
+	<insert id="basketSave">
+		insert into mybasket(member_id, book_id) 
+		values(#{mid}, #{bid})
+	</insert>
+	
+	<select id="selectBasket" parameterType="int" resultType="com.bookSystem.Entity.MyBasket">
+		select * from mybasket where member_id=#{memberId}
+	</select>
+	
+	<select id ="findById" parameterType="int" resultType="com.bookSystem.Entity.Book">
+		select * from book where book_id=#{bookId}
+	</select>
+	
+		<delete id="deleteBasket" parameterType="int">
+		delete from mybasket where id=#{id}
+	</delete>
+	
+	
+	<insert id="loanInsert">
+		insert into book_use(member_id, book_id, status, loan_date)
+		values( #{mid}, #{bid}, '대출', now() )
+	</insert>
+	
+	<select id="findByMyLoan" parameterType="int" resultType="com.bookSystem.Entity.BookUse">
+		select * from book_use where member_id=#{memberId} and status='대출'
+	</select>
+	
+	
+	<delete id="returnEx">
+		update book_use set status='반납' where id=#{id}
+	</delete>
+
+
+
 
 </mapper>
 

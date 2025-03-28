@@ -8,18 +8,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Book {
-	private int bookId;
-	private String bookTitle;
-	private String bookAuthor;
-	private String bookPublishing;
-	private int bookYear;
+	private int book_id;
+	private String book_title;
+	private String book_author;
+	private String book_publishing;
+	private int book_year;
 	
 	public static Book of(BookWriteDto bookWriteDto) {
 		Book book = new Book();
-		book.setBookAuthor(bookWriteDto.getBookAuthor());
-		book.setBookPublishing(bookWriteDto.getBookPublishing());
-		book.setBookTitle(bookWriteDto.getBookTitle());
-		book.setBookYear(bookWriteDto.getBookYear());
+		book.setBook_author(bookWriteDto.getBookAuthor());
+		book.setBook_publishing(bookWriteDto.getBookPublishing());
+		book.setBook_title(bookWriteDto.getBookTitle());
+		book.setBook_year(bookWriteDto.getBookYear());
 		
 		return book;
 	}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	  
+<head>
+	<th:block layout:fragment="css"></th:block>  
+	<th:block layout:fragmnet="script"></th:block>
+</head>
+
+		
+	<div layout:fragment="main" id="main">
+	
+		<h1> 도서 대여 하기 </h1>
+		<h4> 대여 도서 버튼을 클릭하세요 </h4>
+		
+		<br>
+		
+		<table>
+			<tr>
+				<th>제목</th><th>저자</th>
+				<th>대여</th>
+			</tr>
+			
+			<tr th:each="row : ${basketList}">
+				<td th:text="${row.book_title}"></td>
+				<td th:text="${row.book_author}"></td>
+				<td style="width:120px; text-align:center;">
+					<a th:href="'/loanSave?id='+${row.id}+'&bookId='+${row.book_id}" >대여</a>
+					
+				</td>
+			</tr>
+		</table>
+	
+	</div>
+	
+	
+	
+</html>

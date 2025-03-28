@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bookSystem.DTO.BookBasketDto;
 import com.bookSystem.DTO.BookLIstDto;
+import com.bookSystem.DTO.BookLoanDto;
 import com.bookSystem.DTO.BookSearchDto;
 import com.bookSystem.DTO.MemberDto;
 import com.bookSystem.Service.BookService;
@@ -74,13 +77,80 @@ public class MainController {
 	
 	@GetMapping("/bookSearch/result")
 	public String searchResult(BookSearchDto bookSearchDto, Model model) {
-		List<BookLIstDto> bookLIstDto = bookservice.bookSearch(bookSearchDto);
-		model.addAttribute("bookLIstDto", bookLIstDto);
+		List<BookLIstDto> bookLIstDtos = bookservice.bookSearch(bookSearchDto);
+		model.addAttribute("bookLIstDtos", bookLIstDtos);
+		
 		return "book/search";
 	}
 	
 	
 	// 도서 검색부분 끝
+	
+	
+	// 도서 제목 클릭하여 바구니에 넣기 요청 처리
+	
+	@GetMapping("/basket")
+	public String basket(@RequestParam int bookId, HttpSession session) {
+		
+		String email = (String)session.getAttribute("user");
+		bookservice.myBasketSave(bookId, email);
+		
+		return "redirect:/bookSearch";
+	}
+	
+	// 대출 페이지 요청 처리
+	
+	@GetMapping("/loans")
+	public String loansPage(Model model, HttpSession session) {
+		String email = (String)session.getAttribute("user");
+		List<BookBasketDto> basketList = bookservice.myBasketList(email);
+		
+		model.addAttribute("basketList", basketList);
+		
+		return "book/loan";
+	}
+	
+
+	@GetMapping("/loanSave")
+	public String loanSave(@RequestParam("id") int id, 
+			@RequestParam("bookId") int bookId, HttpSession session,Model model) {
+		String email = (String)session.getAttribute("user");
+		boolean hasLoan =bookservice.loanSave(id,bookId, email);
+		if(hasLoan) {
+			List<BookBasketDto> basketList = bookservice.myBasketList( email );
+			
+			model.addAttribute("basketList", basketList );
+			model.addAttribute("fail",1);	
+			return "book/loan";
+		}
+		return "redirect:/loans";
+	}
+	
+	@GetMapping("/return")
+	public String returnPage(Model model , HttpSession session) {
+		String email = (String)session.getAttribute("user");
+//		
+		List<BookLoanDto> list = bookservice.myLoanList( email );
+//		
+		model.addAttribute("loanList",list);
+		return "book/bookReturn";
+	}
+	
+
+	
+	
+	@GetMapping("/returnExecute")
+	public String returnExe(@RequestParam int id) {
+		
+		bookservice.returnEx(id);
+		
+		return "redirect:/return";
+	}
+	
+	
+	
+	
+	
 	
 	//변수 받아오는 세가지 방법
 	// 1. request param

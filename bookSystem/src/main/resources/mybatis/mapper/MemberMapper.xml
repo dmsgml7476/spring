@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 마이바티스 사이트에서 매핑된 SQL 구문 살펴보기에 있는 -->
+
 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<!-- 데이터 베이스와 연결된 MemberRepository와 연결해줘야함. MemberRepository가 인터페이스일 수 있는 이유 -->
-<!-- 주소는 연결하는 레퍼지토리의 패키지+인터페이스명인, 풀 주소 적어넣기 -->
+
   <mapper namespace="com.bookSystem.Repository.MemberRepository">  
   	
-  	<!-- SQL문의 select나, insert, delete 등등이 클래스가 된다. -->
-  	<!-- MemberRepository 의 login 메서드의 이름이 id , resulteType이 반환타입, parmeterType이 매개변수 -->
-  	<!-- email=#{email} 전자는 DB 컬럼명, 후자는 클래스 변수명 -->
+
   	<select id="login" resultType="java.lang.String" parameterType="com.bookSystem.DTO.MemberDto">
   	
   		select email from test_member where email=#{email} and password=#{password}
+  	
+  	</select>
+  	
+  	<select id="findByEmail" parameterType="string" resultType="int">
+  		select member_id from test_member where email=#{email}
   	
   	</select>
   	

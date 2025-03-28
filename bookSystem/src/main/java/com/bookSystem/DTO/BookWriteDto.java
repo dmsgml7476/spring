@@ -16,10 +16,10 @@ public class BookWriteDto {
 	
 	public static BookWriteDto of(Book book) {
 		BookWriteDto bookWriteDto=new BookWriteDto();
-		bookWriteDto.setBookAuthor(book.getBookAuthor());
-		bookWriteDto.setBookPublishing(book.getBookPublishing());
-		bookWriteDto.setBookTitle(book.getBookTitle());
-		bookWriteDto.setBookYear(book.getBookYear());
+		bookWriteDto.setBookAuthor(book.getBook_author());
+		bookWriteDto.setBookPublishing(book.getBook_publishing());
+		bookWriteDto.setBookTitle(book.getBook_title());
+		bookWriteDto.setBookYear(book.getBook_year());
 		
 		return bookWriteDto;
 	}
