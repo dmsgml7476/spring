@@ -105,11 +105,16 @@ public class BookService {
 	
 	public List<BookLoanDto> myLoanList(String email) {
 		
+		// 회원번호 구해오고
+		int memberId = memberRepository.findByEmail(email);
+
+		// Entity 대출한 책목록들이 들어가 있음. book_use 데이터베이스에서 데이터 조회해옴 
+		List<BookUse> bookUses = bookRepository.findByMyLoan(memberId);
+		
+		// Dto 클라이언트한테 보여줄 데이터를 넣어줄 리스트.
 		List<BookLoanDto> list = new ArrayList<>();
 		
-		int memberId = memberRepository.findByEmail(email);
-		
-		List<BookUse> bookUses = bookRepository.findByMyLoan(memberId);
+		// Entity로 데이터베이스 데이터를 받아온 bookUses를 list에 넣어줌.
 		for(BookUse bookUse : bookUses) {
 			Book book = bookRepository.findById(bookUse.getBook_id());
 			BookLoanDto bookLoanDto = BookLoanDto.of(bookUse, book);

@@ -58,7 +58,7 @@
 	
 	
 	<delete id="returnEx">
-		update book_use set status='반납' where id=#{id}
+		update book_use set status='반납', return_date =now() where id=#{id}
 	</delete>
 
 
