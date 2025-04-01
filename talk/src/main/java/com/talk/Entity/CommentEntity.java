@@ -18,6 +18,9 @@ public class CommentEntity {
 	
 	public static CommentEntity from(CommentDto commentDto) {
 		CommentEntity commentEntity = new CommentEntity();
+		commentEntity.setBoardId(commentDto.getBoardId());
+		commentEntity.setMemberId(commentDto.getMemberId());
+		commentEntity.setContent(commentDto.getContent());
 		
 		return commentEntity;
 	}
