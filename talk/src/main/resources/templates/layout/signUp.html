@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="signUp" id="joinModal">
+	<div id="joinModalBg"></div>
+        <div id="joinBox" class="box">
+            <h2 class="text-light text-center mb15">TALK SIGNUP</h2>
+            <form th:object="${memberSignUpDto}" method="post" action="/member/signUp">
+                <div class="input-field">
+                    <input type="text" th:field="*{memberId}" class="inputBox join-input" placeholder="아이디">
+                </div>
+                <div class="input-field">
+                    <input type="password" th:field="*{password}" class="inputBox join-input" placeholder="비밀번호">
+                </div>
+                <div class="input-field">
+                    <input type="password" class="inputBox join-input" placeholder="비밀번호확인">
+                </div>
+                <div class="input-field">
+                    <input type="text" th:field="*{name}" class="inputBox join-input" placeholder="이름">
+                </div>
+                <div class="input-field">
+                    <input type="email" th:field="*{email}" class="inputBox join-input" placeholder="이메일">
+                </div>
+                <div class="input-field">
+                    <input type="text" th:field="*{tel}" class="inputBox join-input" placeholder="연락처">
+                </div>
+                <div class="input-field">
+                    <button class="btn">SignUp</button>
+                </div>
+            </form>
+        </div>
+	</div>
+</html>
