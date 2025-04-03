@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/default}">
+<head>
+	<th:block layout:fragment="css"></th:block>
+		<link rel="stylesheet" href="/css/write.css">
+	<th:block layout:fragment="script"></th:block>
+
+</head>
+
+	<div layout:fragment="main" id="main">
+			<div id="writeBox">
+                <form th:object="${boardDto}" method="get" action="">
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">제목</label>
+                        <input type="text" th:field="*{title}" class="inputBox">
+                    </div>
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">이미지</label>
+                        <input type="file" th:field=*{fileName} class="inputBox" accept="jpg,PNG,gif">
+                    </div>
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">내용</label>
+                        <textarea th:field="*{content}" class="content-style"></textarea>
+                    </div>
+                    <div class="input-field">
+                        <button class="btn">Write</button>
+                    </div>
+                </form>
+            </div>
+	</div>
+
+</html>

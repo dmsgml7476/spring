@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-	<div th:fragment="signUp" id="joinModal">
+
+	<div th:fragment="signUp" id="joinModal" th:style="${open==1 ? 'display:block;' : ''}">
 	<div id="joinModalBg"></div>
         <div id="joinBox" class="box">
             <h2 class="text-light text-center mb15">TALK SIGNUP</h2>
+            
             <form th:object="${memberSignUpDto}" method="post" action="/member/signUp">
                 <div class="input-field">
                     <input type="text" th:field="*{memberId}" class="inputBox join-input" placeholder="아이디">
+                	<p th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" class="error"></p>
                 </div>
                 <div class="input-field">
                     <input type="password" th:field="*{password}" class="inputBox join-input" placeholder="비밀번호">
+                	<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></p>
                 </div>
                 <div class="input-field">
                     <input type="password" class="inputBox join-input" placeholder="비밀번호확인">
                 </div>
                 <div class="input-field">
                     <input type="text" th:field="*{name}" class="inputBox join-input" placeholder="이름">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
                 </div>
                 <div class="input-field">
                     <input type="email" th:field="*{email}" class="inputBox join-input" placeholder="이메일">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></p>
                 </div>
                 <div class="input-field">
                     <input type="text" th:field="*{tel}" class="inputBox join-input" placeholder="연락처">

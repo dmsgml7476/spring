@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/default}">
+<head>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/css/board.css">
+	</th:block>
+	<th:block layout:fragment="script"></th:block>
+
+</head>
+
+	<div layout:fragment="main" id="main">
+	
+            <h1 class="text-light text-center mb15"> 모두의 정보 </h1>
+            <div class="boardbtn mb15">
+                <a href="/board/write" class="btn">Write</a>
+            </div>
+            <ul class="">
+                <li class="text-light bb2sl mb15 pv10 flex">
+                    <span class="w10p text-center">.No</span>
+                    <span class="w40p text-center">Title</span>
+                    <span class="w20p text-center">Writer</span>
+                    <span class="w10p text-center">Hit</span>
+                    <span class="w20p text-center">Date</span>
+                </li>
+                
+                <li th:each="row , stat : ${boardListDtos}" class="text-light bb2sl mb15 pv10 flex">
+                    <span th:text="${stat.count}" class="w10p text-center">.No</span>
+                    <span th:text="${row.title}" class="w40p text-center">Title</span>
+                    <span th:text="${row.memberId}" class="w20p text-center">Writer</span>
+                    <span th:text="${row.hit}" class="w10p text-center">Hit</span>
+                    <span th:text="${row.writeDate}" class="w20p text-center">Date</span>
+                </li>
+                
+            </ul>
+	
+	</div>
+
+</html>

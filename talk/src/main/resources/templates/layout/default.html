@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html  xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대화가 필요해</title>
+<title>대화가필요해</title>
 
 	<link rel="stylesheet" href="/css/default.css">
 	<script src="/javascript/default.js"></script>
-	
+
 	<th:block layout:fragment="css"></th:block>
 	<th:block layout:fragment="script"></th:block>
 </head>
@@ -18,11 +18,14 @@
 		<th:block layout:fragment="main"></th:block>
 		<th:block th:replace="layout/footer :: foot"></th:block>
 	</div>
-	
+
 	<th:block th:replace="layout/menu :: menu"></th:block>
-	<th:block th:replace="layout/signIn :: signIn"></th:block>
-	<th:block th:replace="layout/signUp :: signUp"></th:block>
-	
+	<th:block th:if="${session.user==null}">
+		<th:block th:replace="layout/signIn :: signIn"></th:block>
+		<th:block th:replace="layout/signUp :: signUp"></th:block>
+	</th:block>
 
 </body>
 </html>
+
+

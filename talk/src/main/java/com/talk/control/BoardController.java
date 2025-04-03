@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.talk.DTO.BoardDto;
 import com.talk.DTO.CommentDto;
@@ -22,19 +23,23 @@ public class BoardController {
 	@GetMapping("/index")
 	public String boardIndex (@RequestParam("page") int pageNum, Model model) {
 		
-		return null;
+		return "board/boardList";
 	}
 	
 	//
 	@GetMapping("/write")
 	public String boardWrite (HttpSession session, Model model) {
-		return null;
+		model.addAttribute("boardDto", new BoardDto());
+		
+		return "board/boardWrite";
 	}
 	
 	@GetMapping("/writeSave")
-	public String boardWrite (BoardDto boardDto, HttpSession session, Model model) {
+	public String boardWrite (BoardDto boardDto, @RequestParam("imgFile") MultipartFile multipartFile, HttpSession session, Model model) {
 		
-		return null;
+		boardService.boardSave(boardDto, multipartFile);
+		
+		return "redirect:/";
 	}
 	
 	@GetMapping("/delete")

@@ -12,6 +12,11 @@ body{
     background:#2b2b2b;
 }
 
+.view{display:block;}
+.error{
+	color:red; font-size:14px;
+}
+
 .box{
     padding:10px;
     border-radius:7px;

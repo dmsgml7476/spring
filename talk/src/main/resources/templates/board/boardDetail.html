@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/default}">
+<head>
+	<th:block layout:fragment="css"></th:block>
+	<th:block layout:fragment="script"></th:block>
+
+</head>
+
+	<div layout:fragment="main" id="main">
+		<div id="detailBox" th:object="${boardDetailDto}" class="text-light">
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">제목</label>
+                        <span th:text="*{title}" class="">가자 귤반 ~</span>
+                    </div>
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">작성자</label>
+                        <span th:text="*{memberId}" class="">전계림</span>
+                    </div>
+                    <div class="mb15 flex flex-align-center">
+                        <label class="w10p">작성일</label>
+                        <span th:text="*{writeDate}" class="">2025.08.19</span>
+                        <label class="w10p">조회수</label>
+                        <span th:text="*{hit}" class="">94</span>
+                    </div>
+                    <div class="mb15 flex flex-align-center">
+                        <div th:text="*{content}" class="content-style">
+                            가나다라마바사아자자장
+                            아나앙
+                        </div>
+                    </div>
+                    <div>
+                        <img th:src="@{${fileName}}" src="./image/slide1.jpg">
+                    </div>
+            </div>
+            <div id="commentBox" class="text-light">
+                <div id="commentWriteBox">
+                    <form th:object="${commentDto}" method="get" action="">
+                        <div id="commentWrite" class="flex flex-align-center">
+                            <input type="hidden" th:name="*{boardId}" th:value="${boardDetailDto.id}">
+                            <div class="flex flex-align-center cInput">
+                                <label class="w10p">내용</label>
+                                <input type="text" th:field="*{content}" class="inputBox commentInput">
+                            </div>
+                            <div class="flex flex-align-center w10p">
+                                <button class="btn btn-color-green">댓글</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="commentListBox">
+                    <ul id="commentList">
+                        
+                        <li th:each="row : ${commentViewDtos}" class="clist">
+                            <div class="flex flex-align-center mb15">
+                                <span th:text="${row.memberId}">aaaa</span>
+                                <span class="w20p text-center">2025.03.11</span>
+                                <span th:if="${row.memberId==session.user}" class="w10p">
+                                    <button class="btn btn-color-red">삭제</button>
+                                </span>
+                            </div>
+                            <div >
+                                컨트롤 서비스 레포지토리 흐름만 기억해 
+                                넌할수 있어~
+                            </div>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+	</div>
+
+</html>

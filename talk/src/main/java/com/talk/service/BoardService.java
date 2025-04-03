@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.talk.DTO.BoardDetailDto;
 import com.talk.DTO.BoardDto;
@@ -15,48 +17,53 @@ import com.talk.Repository.CommentRepository;
 
 @Service
 public class BoardService {
-	
+
 	@Autowired
 	private BoardRepository boardRepository;
-	
 	@Autowired
 	private CommentRepository commentRepository;
+	@Autowired
+	private FileService fileService;
 	
-	public void boardSave (BoardDto boardDto) {
-		
-	}
+	@Value("${imgPath}")
+	private String imgPath;
 	
-	public void boardDelete (int id) {
-		
-	}
-	
-	public void boardUpdate (BoardDto boardDto) {
-		
-	}
-	
-	public BoardDetailDto boardDetail (int id) {
-		return null;
-	}
-
-	
-	public List<BoardListDto> boardList(int pageNum) {
+	//게시글 목록
+	public List<BoardListDto> boardList(int pageNum){
 		
 		return null;
 	}
 	
-	// 게시글 전체 갯수
+	//게시글 갯수
 	public int boardCount() {
 		return 0;
 	}
 	
-	// 최근글(5개)
-	
-	public List<BoardListDto> boardRecent (){
-		List<BoardEntity> boardEntities =boardRepository.findByOrderByWriteDateDesc();
+	//게시글 저장
+	public void boardSave(BoardDto boardDto, String memberId, MultipartFile multipartFile) {
+		BoardEntity boardEntity = BoardDto.to(boardDto);
+		boardEntity.setMemberId(memberId);
+	}
+	// 게시글 삭제
+	public void boardDelete(int id) {
+		
+	}
+	//게시글 수정
+	public void boardUpdate(BoardDto boardDto) {
+		
+	}
+	//게시글 상세보기
+	public BoardDetailDto boardDetail(int id) {
+		return null;
+	}
+	//최근글
+	public List<BoardListDto> boardRecent(){
+		
+		List<BoardEntity> boardEntities = boardRepository.findByOrderByWriteDateDesc();
 		
 		List<BoardListDto> boardListDtos = new ArrayList<>();
 		
-		for(BoardEntity board : boardEntities) {
+		for(BoardEntity board : boardEntities ) {
 			BoardListDto dto = BoardListDto.from(board);
 			
 			boardListDtos.add(dto);
@@ -64,23 +71,19 @@ public class BoardService {
 		
 		return boardListDtos;
 	}
-	
 	//인기글
-	
-	public List<BoardListDto> boardPoupular(){
-		List<BoardEntity> boardEntities =boardRepository.findByOrderByHitDesc();
+	public List<BoardListDto> boardPopular(){
+		List<BoardEntity> boardEntities = boardRepository.findByOrderByHitDesc();
 		
 		List<BoardListDto> boardListDtos = new ArrayList<>();
 		
-		for(BoardEntity board : boardEntities) {
+		for(BoardEntity board : boardEntities ) {
 			BoardListDto dto = BoardListDto.from(board);
 			
 			boardListDtos.add(dto);
 		}
 		
 		return boardListDtos;
+		
 	}
-	
-	
-
 }

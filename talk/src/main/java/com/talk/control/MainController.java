@@ -21,7 +21,7 @@ public class MainController {
 		// 최근글 5개 가져오기
 		model.addAttribute("recentList", boardService.boardRecent());
 		// 인기글 5개 가져오기
-		model.addAttribute("popularList", boardService.boardPoupular());
+		model.addAttribute("popularList", boardService.boardPopular());
 		
 		model.addAttribute("memberSignInDto", new MemberSignInDto());
 		model.addAttribute("memberSignUpDto", new MemberSignUpDto());
