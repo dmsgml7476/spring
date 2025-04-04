@@ -11,14 +11,14 @@
 
 	<div layout:fragment="main" id="main">
 			<div id="writeBox">
-                <form th:object="${boardDto}" method="get" action="">
+                <form th:object="${boardDto}" method="post" action="/board/writeSave" enctype="multipart/form-data">
                     <div class="mb15 flex flex-align-center">
                         <label class="w10p">제목</label>
                         <input type="text" th:field="*{title}" class="inputBox">
                     </div>
                     <div class="mb15 flex flex-align-center">
                         <label class="w10p">이미지</label>
-                        <input type="file" th:field=*{fileName} class="inputBox" accept="jpg,PNG,gif">
+                        <input type="file" name="imgFile" class="inputBox" accept="jpg,PNG,gif">
                     </div>
                     <div class="mb15 flex flex-align-center">
                         <label class="w10p">내용</label>

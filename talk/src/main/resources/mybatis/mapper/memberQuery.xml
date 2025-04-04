@@ -12,9 +12,9 @@
       		
   		<select id="findByMemberIdAndPassword" parameterType="MemberEntity">
   			
-  			select case when count(*) > 0 then true else false end from member
+  			select case when count(*) > 0 then true else false end from member 
   			where member_id=#{memberId}  
-  			and  password=#{password}
+  			and password=#{password}
   			
   		</select>
   		

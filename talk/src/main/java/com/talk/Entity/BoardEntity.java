@@ -18,5 +18,6 @@ public class BoardEntity {
 	private String fileName;
 	private int hit;
 	private LocalDate writeDate;
+	
 
 }

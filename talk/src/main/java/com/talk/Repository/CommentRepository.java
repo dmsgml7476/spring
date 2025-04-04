@@ -10,5 +10,5 @@ import com.talk.Entity.CommentEntity;
 public interface CommentRepository {
 	public int insert (CommentEntity commentEntity);
 	public int delete (int id);
-	public List<CommentEntity> findByBoardId (int id);
+	public List<CommentEntity> findByBoardIdOrderIdDesc(int id);
 }

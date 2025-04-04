@@ -31,14 +31,16 @@
                         </div>
                     </div>
                     <div>
-                        <img th:src="@{${fileName}}" src="./image/slide1.jpg">
+                        <img th:src="*{fileName}" src="./image/slide1.jpg">
                     </div>
+                    
+                    <a class="btn btn-color-red" th:href="'/board/updatePage?id='+${boardDetailDto.id}">수정</a>
             </div>
             <div id="commentBox" class="text-light">
                 <div id="commentWriteBox">
                     <form th:object="${commentDto}" method="get" action="">
                         <div id="commentWrite" class="flex flex-align-center">
-                            <input type="hidden" th:name="*{boardId}" th:value="${boardDetailDto.id}">
+                            <input type="hidden" th:field="*{boardId}">
                             <div class="flex flex-align-center cInput">
                                 <label class="w10p">내용</label>
                                 <input type="text" th:field="*{content}" class="inputBox commentInput">
@@ -52,15 +54,15 @@
                 <div id="commentListBox">
                     <ul id="commentList">
                         
-                        <li th:each="row : ${commentViewDtos}" class="clist">
+                        <li th:each="row : ${boardDetailDto.commentList}" class="clist">
                             <div class="flex flex-align-center mb15">
                                 <span th:text="${row.memberId}">aaaa</span>
-                                <span class="w20p text-center">2025.03.11</span>
+                                <span th:text="${row.writeDate}" class="w20p text-center">2025.03.11</span>
                                 <span th:if="${row.memberId==session.user}" class="w10p">
                                     <button class="btn btn-color-red">삭제</button>
                                 </span>
                             </div>
-                            <div >
+                            <div th:text="${row.content}" >
                                 컨트롤 서비스 레포지토리 흐름만 기억해 
                                 넌할수 있어~
                             </div>

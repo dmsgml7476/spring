@@ -25,16 +25,32 @@
                     <span class="w20p text-center">Date</span>
                 </li>
                 
-                <li th:each="row , stat : ${boardListDtos}" class="text-light bb2sl mb15 pv10 flex">
-                    <span th:text="${stat.count}" class="w10p text-center">.No</span>
-                    <span th:text="${row.title}" class="w40p text-center">Title</span>
+                <li th:each="row , stat : ${boardListDtos}" class="text-light mb15 pv10 flex mh-blue">
+                    <span th:text="${stat.count + (page-1)*10}" class="w10p text-center">.No</span>
+                    <span class="w40p text-center">
+                    	<a th:text="${row.title}" th:href="'/board/detail?id='+${row.id}"></a>
+                    </span>
                     <span th:text="${row.memberId}" class="w20p text-center">Writer</span>
                     <span th:text="${row.hit}" class="w10p text-center">Hit</span>
                     <span th:text="${row.writeDate}" class="w20p text-center">Date</span>
                 </li>
                 
             </ul>
-	
+			
+			<div class = "paging-box text-light">
+				<ul class="paging-num-list flex">
+					<li class="paging-num"> &lt </li>
+					<li th:each="p : ${#numbers.sequence(start, end)}" class="paging-num">
+						<span th:if="${page==p}" th:text="${p}" class="pnum" style="color:red;"></span>
+						<a th:unless="${page==p}" th:text="${p}" th:href="'/board/index?page='+${p}"></a>
+					</li>
+					<li class="paging-num">&gt</li>
+									
+				</ul>
+				
+			</div>
+			
+			
 	</div>
 
 </html>

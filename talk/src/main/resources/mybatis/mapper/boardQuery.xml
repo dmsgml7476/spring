@@ -15,5 +15,22 @@
   	
   	</select>
   	
+  	<insert id="insert" parameterType = "BoardEntity">
+  		insert into board(title, member_id, content, file_name, hit, write_date) 
+  		values(#{title}, #{memberId}, #{content}, #{fileName}, 0, now())
+  	</insert>
+  	
+  	<select id="findByIdBetween" resultType="BoardEntity" >
+		select * from board order by id desc limit #{index} , #{pageCnt}
+  	</select>
+  	
+  	<select id="findByAllCount" resultType="int">
+  		select count(*) from board
+  	</select>
+  	
+  	<select id="findById" parameterType="int" resultType="BoardEntity">
+  		select * from board where id = #{id}
+  	</select>
+  	
   
   </mapper>
