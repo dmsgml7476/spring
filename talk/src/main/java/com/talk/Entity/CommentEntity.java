@@ -14,7 +14,7 @@ public class CommentEntity {
 	private int boardId;
 	private String memberId;
 	private String content;
-	private LocalDate writerDate;
+	private LocalDate writeDate;
 	
 	public static CommentEntity from(CommentDto commentDto) {
 		CommentEntity commentEntity = new CommentEntity();

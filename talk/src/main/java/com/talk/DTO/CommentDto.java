@@ -10,7 +10,5 @@ public class CommentDto {
 	private int boardId;
 	private String content;
 	private String memberId;
-	public void setBoardId(int id2){
-	
-	}
+
 }

@@ -21,7 +21,7 @@ public class CommentViewDto {
 		commentViewDto.setId(commentEntity.getId());
 		commentViewDto.setMemberId(commentEntity.getMemberId());
 		commentViewDto.setContent(commentEntity.getContent());
-		commentViewDto.setWriteDate(commentEntity.getWriterDate());
+		commentViewDto.setWriteDate(commentEntity.getWriteDate());
 		
 		return commentViewDto;
 	}

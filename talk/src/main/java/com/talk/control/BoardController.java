@@ -15,19 +15,29 @@ import com.talk.DTO.BoardDetailDto;
 import com.talk.DTO.BoardDto;
 import com.talk.DTO.BoardListDto;
 import com.talk.DTO.CommentDto;
+import com.talk.DTO.MemberSignInDto;
 import com.talk.service.BoardService;
-
+import com.talk.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+
+    private final CommentService commentService;
 	@Autowired
 	private BoardService boardService;
+
+
+    BoardController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 	
 	// 목록
 	@GetMapping("/index")
-	public String boardIndex (@RequestParam("page") int pageNum, Model model) {
+	public String boardIndex (@RequestParam("page") int pageNum, HttpSession session, Model model) {
+		
+
 		
 		// 한페이지에 보여줄 게시글 가져오기
 		List<BoardListDto> boardListDtos= boardService.boardList(pageNum);
@@ -108,15 +118,22 @@ public class BoardController {
 	
 	
 	//댓글 저장
-	@GetMapping("/commentSave")
-	public String commentSave (CommentDto commentDto, HttpSession session) {
-		return null;
+	@PostMapping("/commentSave")
+	public String commentSave (CommentDto commentDto, HttpSession session, Model model) {
+		
+		// 현재 로그인한 회원 아이디 필요 - 세션에서 가져오기 - 로기인하면 user라는 이름으로 저장했다.
+		String memberId = (String)session.getAttribute("user");
+		commentService.commentSave(commentDto, memberId);
+
+		return "redirect:/board/detail?id=" + commentDto.getBoardId();
 	}
 	
 	//댓글 삭제
-	@GetMapping("/commentDelete")
-	public String commentDel (@RequestParam("id") int id, HttpSession session) {
-		return null;
+	@PostMapping("/commentDelete")
+	public String commentDel (@RequestParam("id") int id, String boardId,HttpSession session) {
+		commentService.commentDelete(id);
+		System.out.println("삭제 잡히는 지 확인");
+		return "redirect:/board/detail?id=" + boardId;
 	}
 	
 }

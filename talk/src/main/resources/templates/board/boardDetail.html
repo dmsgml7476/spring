@@ -38,7 +38,7 @@
             </div>
             <div id="commentBox" class="text-light">
                 <div id="commentWriteBox">
-                    <form th:object="${commentDto}" method="get" action="">
+                    <form th:object="${commentDto}" method="post" action="/board/commentSave">
                         <div id="commentWrite" class="flex flex-align-center">
                             <input type="hidden" th:field="*{boardId}">
                             <div class="flex flex-align-center cInput">
@@ -59,7 +59,11 @@
                                 <span th:text="${row.memberId}">aaaa</span>
                                 <span th:text="${row.writeDate}" class="w20p text-center">2025.03.11</span>
                                 <span th:if="${row.memberId==session.user}" class="w10p">
+                                <form method="post" action="/board/commentDelete">
+                                	<input type="hidden" name="id" th:value="${row.id}">
+                                	<input type="hidden" name="boardId" th:value="${boardDetailDto.id}">
                                     <button class="btn btn-color-red">삭제</button>
+                                </form>
                                 </span>
                             </div>
                             <div th:text="${row.content}" >

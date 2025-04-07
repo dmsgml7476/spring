@@ -11,5 +11,14 @@
     		select * from comment where board_id = #{id} order by id desc;
     		
     	</select>
+    	
+    	<insert id="insert" parameterType="CommentEntity">
+    		insert into comment(board_id, member_id, content, write_date) 
+    		values(#{boardId}, #{memberId}, #{content}, now())
+    	</insert>
+    	
+		<delete id="delete" parameterType="int">
+			delete from comment where id=#{id}
+		</delete>
   
   </mapper>
